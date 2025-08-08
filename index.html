@@ -81,11 +81,11 @@
       }
 
       .carousel::-webkit-scrollbar {
-        display: none; /* Hides the scrollbar */
+        display: none;
       }
 
       .front::-webkit-scrollbar {
-        display: none; /* Hides the scrollbar */
+        display: none;
       }
 
       .text {
@@ -108,14 +108,13 @@
         scroll-snap-align: center;
         position: relative;
         text-align: center;
-        transition: transform 0.3s, z-index 0.3s;
+        transition: transform 0.3s, z-index 0.3s, height 0.5s;
         transform: scale(0.9) rotateY(-5deg);
         z-index: 0;
         height: 48vh;
         background-size: cover;
         background-position: center;
         outline: 9.362px solid rgba(255, 255, 255, 0.2);
-        /* box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.25); */
         backdrop-filter: blur(35.10638427734375px);
       }
 
@@ -221,7 +220,7 @@
       }
 
       .spacer {
-        flex: 0 0 calc((100% - 300px) / 2); /* 300px = card max-width */
+        flex: 0 0 calc((100% - 300px) / 2);
         pointer-events: none;
       }
 
@@ -231,6 +230,14 @@
         flex-direction: column;
         gap: 24px;
         align-items: center;
+      }
+
+      .none {
+        display: none;
+      }
+
+      .card.show-front {
+        height: 70vh;
       }
 
       .card.show-front .back {
@@ -256,12 +263,12 @@
         gap: 20px;
         padding: 20px;
         padding-top: 50%;
-        padding-bottom: 20px;
+        padding-bottom: 30px;
         text-align: left;
         overflow-y: auto; /* ← enables vertical scrolling */
         overscroll-behavior: contain;
         z-index: 10;
-        mask-image: linear-gradient(
+        /* mask-image: linear-gradient(
           to bottom,
           transparent,
           black 10%,
@@ -274,7 +281,7 @@
           black 10%,
           black 90%,
           transparent
-        );
+        ); */
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(15px);
       }
@@ -285,14 +292,64 @@
       <div class="spacer"></div>
       <div
         class="card"
-        style="background-image: url('./assets/1.webp')"
+        style="background-image: url('./assets/1.png')"
         data-bg="linear-gradient(to bottom, #2a6eff, #001d3d)"
       >
-        <h2 style="z-index: 10">Shadowverse</h2>
-        <div class="author" style="z-index: 10">
-          <img src="./assets/p.jpeg" alt="Юля" />
-          Полина
+        <div class="back">
+          <div style="z-index: 10">
+            <h2>Пелина Дымосвет</h2>
+          </div>
+          <div class="author" style="z-index: 10">
+            <img src="./assets/p.jpeg" alt="Юля" />
+            Полина
+          </div>
         </div>
+
+        <div class="front">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 6;
+              align-items: flex-start;
+            "
+          >
+            <h2>About</h2>
+            <p class="subtitle">Чародей, Аасимар</p>
+          </div>
+          <p>
+            Сила: 0 <br />
+            Ловкость: 0 <br />
+            Мудрость: +2 <br />
+            Интеллект: +4 (История, Магия, Религия) <br />
+            Харизма: 0
+            <br /><br />
+            Владение: кинжалы
+            <br /><br />
+            Навыки:<br />
+            — <br /><br />
+            Способности:<br />
+            Стальной пресс — один раз во время битвы вы получаете +5 к Классу
+            Брони до начала следующего хода.<br /><br />
+            Стрельба глазками — луч синеватой энергии устремляется к выбранному
+            существу. Совершаете дальнобойную атаку, при попадании цель получает
+            1к12 урона электричеством.<br /><br />
+            Свет (Аасимар) — один раз за игру. Пока заклинание активно, предмет,
+            на который оно наложено, источает свет.<br /><br />
+            Травокурка — персонаж зависим от курения трубки. Если не курит
+            каждые 20 минут, получает состояние “ломка” и совершает атаки и
+            проверки с помехой.
+            <br /><br />
+            Предыстория:<br />
+            Уже познал этот мир — аасимары несут дух небесного света, служат
+            добру и закону, неизбежно привлекают внимание злодеев и культистов.
+            Героиня получила магию от своих небесных покровителей для борьбы со
+            злом. Однажды спасла невинную девушку, которую князь попытался
+            обвинить в краже. Однако стража, не разобравшись, арестовала
+            героиню, когда та яростно встала на защиту.
+          </p>
+        </div>
+
         <div class="overlay"></div>
       </div>
       <div
@@ -300,10 +357,62 @@
         style="background-image: url('./assets/2.webp')"
         data-bg="linear-gradient(to bottom, #30cfd0, #0d0b1d)"
       >
-        <h2>Shadowverse</h2>
-        <div class="author">
-          <img src="./assets/ok.jpeg" alt="Юля" />
-          Оксана
+        <div class="back">
+          <div style="z-index: 10">
+            <h2>Юджен</h2>
+          </div>
+          <div class="author" style="z-index: 10">
+            <img src="./assets/p.jpeg" alt="Юля" />
+            Оксана
+          </div>
+        </div>
+
+        <div class="front">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 6;
+              align-items: flex-start;
+            "
+          >
+            <h2>About</h2>
+            <p class="subtitle">Жрица, Красный грунг</p>
+          </div>
+          <p>
+            Сила: +2 <br />
+            Ловкость: 0 <br />
+            Мудрость: +2 <br />
+            Интеллект: 0 <br />
+            Харизма: -2 (грунг)
+            <br /><br />
+            Владение: средние доспехи, щит, булава, боевой молот, арбалет,
+            секира, копье
+            <br /><br />
+            Навыки:<br />
+            Религия +2,<br />
+            Медицина +2
+            <br /><br />
+            Способности:<br />
+            “Держись за моей спиной, малышка” — от тебя исходит аура живительной
+            энергии. Один раз за битву ты можешь восстановить 2к6 здоровья
+            одному существу, стоящему рядом.<br /><br />
+            “Тьфу на тебя” (грунг) — один раз за битву ты можешь плюнуть ядом в
+            любое существо. Оно получает 2к4 урона ядом.<br /><br />
+            Зависимость от воды — если в течение дня ты не вступаешь в контакт с
+            водой, теряешь возможность использовать магию.
+            <br /><br />
+            Предыстория:<br />
+            Ты принадлежишь к касте магических, высокоуважаемых красных грунгов.
+            Покинул(а) родные болота, ведомый(ая) зовом духа странствий (и
+            потому что у вас ввели сухой закон — возмутительно!). Несмотря на
+            изгнание, ты всё ещё поклоняешься великой лягушачьей богине и
+            стремишься распространить её культ. <br /><br />
+            Однажды в трактире ты слишком увлекся(ась) проповедью и случайно
+            плюнул(а) ядом в местного парня. Он оказался сыном герцогини —
+            конечно, побежал жаловаться. Тебя арестовали. Но ты не унываешь. У
+            лягушки — свои пути.
+          </p>
         </div>
       </div>
       <div
@@ -315,12 +424,12 @@
           <div style="z-index: 10">
             <h2>Иванрис Тенебрис</h2>
           </div>
-
           <div class="author" style="z-index: 10">
             <img src="./assets/v.jpeg" alt="Юля" />
             Ваня
           </div>
         </div>
+
         <div class="front">
           <div
             style="
@@ -365,10 +474,57 @@
         style="background-image: url('./assets/4.jpg')"
         data-bg="linear-gradient(to bottom, #ff6a88, #1e0a0a)"
       >
-        <h2>Shadowverse</h2>
-        <div class="author">
-          <img src="./assets/n.jpeg" alt="Юля" />
-          Настя
+        <div class="back">
+          <div style="z-index: 10">
+            <h2>ываываываываа Тенебрис</h2>
+          </div>
+          <div class="author" style="z-index: 10">
+            <img src="./assets/n.jpeg" alt="Юля" />
+            Настя
+          </div>
+        </div>
+
+        <div class="front">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 6;
+              align-items: flex-start;
+            "
+          >
+            <h2>About</h2>
+            <p class="subtitle">Бард, Эльф</p>
+          </div>
+          <p>
+            Сила: -2 <br />
+            Ловкость: +1 <br />
+            Мудрость: -1 <br />
+            Интеллект: 0 <br />
+            Харизма: +4
+            <br /><br />
+            Владение: легкие доспехи, рапиры, короткие мечи, музыкальные
+            инструменты
+            <br /><br />
+            Навыки:<br />
+            Выступление +5
+            <br /><br />
+            Способности:<br />
+            Обезоруживающий анекдот — ты рассказываешь анекдот прямо во время
+            битвы. Одно выбранное существо сгибается от смеха и пропускает свой
+            следующий ход.<br /><br />
+            Вдохновение — ты можешь вдохновить до двух союзников. Они добавляют
+            1к6 к следующей проверке по своему выбору.<br /><br />
+            “Я тут самая пиздатая, понятно вам? Уебы” — тебя невозможно
+            очаровать. И вообще, лучше не пытайся.
+            <br /><br />
+            Предыстория:<br />
+            Она снова заняла золото “не у того”. Часть проиграла в покер,
+            остальное потратила на новый чехол для лютни. В остальном — бард как
+            бард. Ну, почти. Героиня оказалась в тюрьме, потому что шарм не
+            всегда спасает от кредиторов. Но выглядеть при этом она всё равно
+            будет идеально.
+          </p>
         </div>
       </div>
       <div
@@ -376,10 +532,56 @@
         style="background-image: url('./assets/5.webp')"
         data-bg="linear-gradient(to bottom, #38ef7d, #002d20)"
       >
-        <h2>Shadowverse</h2>
-        <div class="author">
-          <img src="./assets/o.jpeg" alt="Юля" />
-          Оля
+        <div class="back">
+          <div style="z-index: 10">
+            <h2>Ор’Лея Трезвая</h2>
+          </div>
+          <div class="author" style="z-index: 10">
+            <img src="./assets/o.jpeg" alt="Юля" />
+            Оля
+          </div>
+        </div>
+
+        <div class="front">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 6;
+              align-items: flex-start;
+            "
+          >
+            <h2>About</h2>
+            <p class="subtitle">Паладин, ???</p>
+          </div>
+          <p>
+            Сила: +5 <br />
+            Ловкость: +2 <br />
+            Мудрость: +4 (История, Магия, Религия) <br />
+            Интеллект: +2 (Проницательность) <br />
+            Харизма: -2
+            <br /><br />
+            Владение: все виды доспехов, воинское оружие, щиты
+            <br /><br />
+            Навыки:<br />
+            Религия +2,<br />
+            Запугивание +3
+            <br /><br />
+            Способности:<br />
+            Господи помиллллуууууй — один раз за игру, при попадании рукопашной
+            атакой оружием причиняете дополнительный урон 2к6.<br /><br />
+            Я за тобой слежу — один раз за игру вы выбираете существо в пределах
+            видимости и объявляете его своей добычей. При каждом попадании по
+            цели наносите дополнительно 1к6 урона.
+            <br /><br />
+            Предыстория:<br />
+            Темный рыцарь торжественно поклялся карать грешников. Увы, в этом
+            мире справедливость — роскошь. Он стал свидетелем того, как стража
+            убила простолюдина в пьяном угаре. Попытавшись отомстить, паладин
+            пал не от меча, а от закона — рядом оказался другой отряд
+            стражников, и его арестовали. Он хранит трезвость и презирает
+            спиртное.
+          </p>
         </div>
       </div>
       <div
@@ -387,17 +589,69 @@
         style="background-image: url('./assets/6.png')"
         data-bg="linear-gradient(to bottom, #ff416c, #1a0a0a)"
       >
-        <h2>Shadowverse</h2>
-        <div class="author">
-          <img src="./assets/a.jpeg" alt="Юля" />
-          Алиса
+        <div class="back">
+          <div style="z-index: 10">
+            <h2>Аштаи</h2>
+          </div>
+          <div class="author" style="z-index: 10">
+            <img src="./assets/a.jpeg" alt="Юля" />
+            Алиса
+          </div>
+        </div>
+
+        <div class="front">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 6;
+              align-items: flex-start;
+            "
+          >
+            <h2>About</h2>
+            <p class="subtitle">Друид, Калаштар</p>
+          </div>
+          <p>
+            Сила: 0 <br />
+            Ловкость: — <br />
+            Мудрость: +3 (Религия, Магия, История) <br />
+            Интеллект: +2 <br />
+            Харизма: +1
+            <br /><br />
+            Владение: простое рукопашное оружие, легкий лук
+            <br /><br />
+            Навыки:<br />
+            Природа +4
+            <br /><br />
+            Способности:<br />
+            “Привет, спишь?” (Калаштар) — ты можешь телепатически общаться с
+            любым существом, которое видишь. Слова необязательны — мысли
+            передаются напрямую.<br /><br />
+            Опутывание — один раз за битву накладываешь заклинание, мешающее
+            движению. Два существа совершают следующую атаку с помехой.<br /><br />
+            Апокалапенапасис — вокруг выбранной цели поднимается плотный туман.
+            Цель скрыта: её атаки совершаются с помехой, и все дальнобойные
+            атаки по ней — тоже.<br /><br />
+            Защита от психологических атак — Аштаи устойчива к магии,
+            воздействующей на разум.
+            <br /><br />
+            Предыстория:<br />
+            Аштаи родом из мира снов. Как и все калаштары, она сбежала в наш
+            мир, спасаясь от злых духов. Её нашёл и вырастил лесной
+            отшельник-друид. Вместе с ним она жила уединённо в лесу… Пока их дом
+            не оказался на участке, выкупленном Королевством для строительства
+            элитного ЖК. <br /><br />
+            Аштаи писала жалобы и письма, в том числе лично Господину С.,
+            наместнику. Власти устали от неё. Бюрократия нашла повод — и
+            друидессу упрятали за решетку.
+          </p>
         </div>
       </div>
       <div class="spacer"></div>
     </div>
 
     <div class="text">
-      <div class="title">
+      <div class="title" id="title">
         Explore ur <br />
         <span class="dnd">D&amp;D</span> hero
       </div>
@@ -409,6 +663,7 @@
       // Get elements
       const carousel = document.getElementById("carousel");
       const cards = carousel.querySelectorAll(".card");
+      const title = document.getElementById("title");
 
       // Update active card based on scroll position
       function updateActiveCard() {
@@ -505,6 +760,7 @@
             if (!isActive) return;
 
             console.log("ItS CLICKED");
+            title.classList.toggle("none");
 
             cards.forEach((c) => {
               if (c !== card) c.classList.remove("show-front");
