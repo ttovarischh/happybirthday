@@ -84,6 +84,10 @@
         display: none; /* Hides the scrollbar */
       }
 
+      .front::-webkit-scrollbar {
+        display: none; /* Hides the scrollbar */
+      }
+
       .text {
         display: flex;
         gap: 20px;
@@ -96,7 +100,7 @@
         justify-content: flex-end;
         gap: 28px;
         align-items: center;
-        flex: 0 0 80%;
+        flex: 0 0 90%;
         max-width: 300px;
         background: #111;
         border-radius: 24px;
@@ -220,6 +224,60 @@
         flex: 0 0 calc((100% - 300px) / 2); /* 300px = card max-width */
         pointer-events: none;
       }
+
+      .back {
+        transition: all 0.5s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .card.show-front .back {
+        opacity: 0;
+        display: none;
+      }
+
+      .card.show-front .front {
+        display: flex;
+        opacity: 1;
+      }
+
+      .front {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        transition: all 0.5s ease-in-out;
+        opacity: 0;
+        /* display: none; */
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        padding-top: 50%;
+        padding-bottom: 20px;
+        text-align: left;
+        overflow-y: auto; /* ← enables vertical scrolling */
+        overscroll-behavior: contain;
+        z-index: 10;
+        mask-image: linear-gradient(
+          to bottom,
+          transparent,
+          black 10%,
+          black 90%,
+          transparent
+        );
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          transparent,
+          black 10%,
+          black 90%,
+          transparent
+        );
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(15px);
+      }
     </style>
   </head>
   <body>
@@ -253,14 +311,51 @@
         style="background-image: url('./assets/3.jpg')"
         data-bg="linear-gradient(to bottom, #6a11cb, #0b0e29)"
       >
-        <div style="z-index: 10">
-          <h2>Shadowverse</h2>
-          <p class="subtitle">✴ Друид  ◆ Паладин</p>
-        </div>
+        <div class="back">
+          <div style="z-index: 10">
+            <h2>Shadowverse</h2>
+            <!-- <p class="subtitle">✴ Друид  ◆ Паладин</p> -->
+          </div>
 
-        <div class="author" style="z-index: 10">
-          <img src="./assets/v.jpeg" alt="Юля" />
-          Ваня
+          <div class="author" style="z-index: 10">
+            <img src="./assets/v.jpeg" alt="Юля" />
+            Ваня
+          </div>
+        </div>
+        <div class="front">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 6;
+              align-items: flex-start;
+            "
+          >
+            <h2>About</h2>
+            <p class="subtitle">Друид, Паладин</p>
+          </div>
+          <p>
+            Сила +1 <br />
+            Ловкость +3 <br />
+            Мудрость 0 <br />Интеллект +2 <br />Харизма +2 <br /><br />Владение:
+            легкие доспехи, простое оружие, длинные мечи, рапиры, короткие мечи,
+            кинжалы, воровские инструменты <br /><br />Навыки: Обман +4,
+            Скрытность +5 <br /><br />Способности: Хитрюга (один раз за битву вы
+            можете причинить дополнительный урон 1к6 одному из существ, по
+            которому вы попали атакой), Отвечаешь за базар (ты знаешь, как
+            говорить с простым народом - получаешь +4 Убеждение, если пытаешься
+            убедить простолюдина), Горячий парень (один раз соединив и
+            растопырив ладони ты источаешь тонкие языки пламени - все существа в
+            пределах конуса должны совершить спасбросок Ловкости - при провале
+            существо получает 1к6 урона огнем) <br /><br />Предыстория:
+            Несколько раз тифлинг уже оказывался за решеткой но каждый раз
+            сбегал. На этот раз он поспорил с посетителем таверны, что выпьет их
+            огненный сет шотов “Горячая штучка”, соперник был слишком пьян,
+            чтобы догадаться, что герой тифлинг, так как на плуте был надет
+            капюшон, и в таверне царил полумрак. Герой выиграл спор, но, когда
+            обман вскрылся, тот парень затеял драку, и каким-то образом в ту
+            ночь таверна сгорела. Герой не смог скрыться, и попал за решетку.
+          </p>
         </div>
         <div class="overlay"></div>
       </div>
@@ -310,9 +405,11 @@
     <button class="button">Say Happy birthday, Юля 🎉</button>
 
     <script>
+      // Get elements
       const carousel = document.getElementById("carousel");
       const cards = carousel.querySelectorAll(".card");
 
+      // Update active card based on scroll position
       function updateActiveCard() {
         let center = carousel.scrollLeft + carousel.offsetWidth / 2;
         let closest = null;
@@ -335,6 +432,12 @@
 
           if (index === closestIndex) {
             card.classList.add("active");
+
+            // Change background to match card
+            const bg = card.getAttribute("data-bg");
+            if (bg) {
+              document.body.style.background = bg;
+            }
           } else if (index === closestIndex - 1) {
             card.classList.add("rotate-left");
           } else if (index === closestIndex + 1) {
@@ -343,6 +446,7 @@
         });
       }
 
+      // Snap scroll to nearest card
       function snapToCard() {
         let center = carousel.scrollLeft + carousel.offsetWidth / 2;
         let closest = null;
@@ -368,6 +472,7 @@
         }
       }
 
+      // Scroll event
       let isScrolling;
       carousel.addEventListener("scroll", () => {
         window.requestAnimationFrame(updateActiveCard);
@@ -378,6 +483,7 @@
         }, 100);
       });
 
+      // Initial load behavior
       window.addEventListener("load", () => {
         const thirdCard = cards[2];
         if (thirdCard) {
@@ -391,55 +497,35 @@
           thirdCard.classList.add("active");
         }
         updateActiveCard();
+
+        cards.forEach((card) => {
+          card.addEventListener("click", () => {
+            const isActive = card.classList.contains("active");
+            if (!isActive) return;
+
+            console.log("ItS CLICKED");
+
+            cards.forEach((c) => {
+              if (c !== card) c.classList.remove("show-front");
+            });
+
+            card.classList.toggle("show-front");
+          });
+        });
       });
 
+      // Button confetti effect
       document.querySelector(".button").addEventListener("click", () => {
         confetti({
           particleCount: 120,
           spread: 90,
-          origin: { y: 1 }, // bottom of screen
+          origin: { y: 1 },
           startVelocity: 40,
           ticks: 300,
           gravity: 1.2,
           scalar: 1.2,
         });
       });
-
-      function updateActiveCard() {
-        let center = carousel.scrollLeft + carousel.offsetWidth / 2;
-        let closest = null;
-        let closestDist = Infinity;
-        let closestIndex = -1;
-
-        cards.forEach((card, index) => {
-          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-          const dist = Math.abs(center - cardCenter);
-
-          if (dist < closestDist) {
-            closestDist = dist;
-            closest = card;
-            closestIndex = index;
-          }
-        });
-
-        cards.forEach((card, index) => {
-          card.classList.remove("active", "rotate-left", "rotate-right");
-
-          if (index === closestIndex) {
-            card.classList.add("active");
-
-            // 🔥 Change background on select
-            const bg = card.getAttribute("data-bg");
-            if (bg) {
-              document.body.style.background = bg;
-            }
-          } else if (index === closestIndex - 1) {
-            card.classList.add("rotate-left");
-          } else if (index === closestIndex + 1) {
-            card.classList.add("rotate-right");
-          }
-        });
-      }
     </script>
   </body>
 </html>
