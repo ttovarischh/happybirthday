@@ -293,7 +293,7 @@
       <div class="spacer"></div>
       <div
         class="card"
-        style="background-image: url('./assets/1.png')"
+        style="background-image: url('./assets/1.webp')"
         data-bg="linear-gradient(to bottom, #2a6eff, #001d3d)"
       >
         <div class="back">
@@ -355,7 +355,7 @@
       </div>
       <div
         class="card"
-        style="background-image: url('./assets/2.png')"
+        style="background-image: url('./assets/2.webp')"
         data-bg="linear-gradient(to bottom, #30cfd0, #0d0b1d)"
       >
         <div class="back">
@@ -418,7 +418,7 @@
       </div>
       <div
         class="card"
-        style="background-image: url('./assets/3.png')"
+        style="background-image: url('./assets/3.webp')"
         data-bg="linear-gradient(to bottom, #6a11cb, #0b0e29)"
       >
         <div class="back">
@@ -472,7 +472,7 @@
       </div>
       <div
         class="card"
-        style="background-image: url('./assets/4.png')"
+        style="background-image: url('./assets/4.webp')"
         data-bg="linear-gradient(to bottom, #ff6a88, #1e0a0a)"
       >
         <div class="back">
@@ -530,7 +530,7 @@
       </div>
       <div
         class="card"
-        style="background-image: url('./assets/5.png')"
+        style="background-image: url('./assets/5.webp')"
         data-bg="linear-gradient(to bottom, #38ef7d, #002d20)"
       >
         <div class="back">
@@ -587,7 +587,7 @@
       </div>
       <div
         class="card"
-        style="background-image: url('./assets/6.png')"
+        style="background-image: url('./assets/6.webp')"
         data-bg="linear-gradient(to bottom, #ff416c, #1a0a0a)"
       >
         <div class="back">
@@ -661,12 +661,10 @@
     <button class="button">Say Happy birthday, Юля 🎉</button>
 
     <script>
-      // Get elements
       const carousel = document.getElementById("carousel");
       const cards = carousel.querySelectorAll(".card");
       const title = document.getElementById("title");
 
-      // Update active card based on scroll position
       function updateActiveCard() {
         let center = carousel.scrollLeft + carousel.offsetWidth / 2;
         let closest = null;
@@ -690,7 +688,6 @@
           if (index === closestIndex) {
             card.classList.add("active");
 
-            // Change background to match card
             const bg = card.getAttribute("data-bg");
             if (bg) {
               document.body.style.background = bg;
@@ -703,7 +700,6 @@
         });
       }
 
-      // Snap scroll to nearest card
       function snapToCard() {
         let center = carousel.scrollLeft + carousel.offsetWidth / 2;
         let closest = null;
@@ -729,7 +725,6 @@
         }
       }
 
-      // Scroll event
       let isScrolling;
       carousel.addEventListener("scroll", () => {
         window.requestAnimationFrame(updateActiveCard);
@@ -741,7 +736,6 @@
         }, 100);
       });
 
-      // Initial load behavior
       window.addEventListener("load", () => {
         const thirdCard = cards[2];
         if (thirdCard) {
@@ -773,7 +767,6 @@
         });
       });
 
-      // Button confetti effect
       document.querySelector(".button").addEventListener("click", () => {
         confetti({
           particleCount: 120,
