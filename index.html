@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <title>D&D Hero Cards</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap"
@@ -20,6 +22,24 @@
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon-16x16.png"
+    />
+    <link rel="manifest" href="./site.webmanifest" />
 
     <style>
       .card.rotate-left {
@@ -197,7 +217,11 @@
   </head>
   <body>
     <div class="carousel" id="carousel">
-      <div class="card" style="background-image: url('./assets/1.webp')">
+      <div
+        class="card"
+        style="background-image: url('./assets/1.webp')"
+        data-bg="linear-gradient(to bottom, #2a6eff, #001d3d)"
+      >
         <h2 style="z-index: 10">Shadowverse</h2>
         <div class="author" style="z-index: 10">
           <img src="./assets/p.jpeg" alt="Юля" />
@@ -205,35 +229,55 @@
         </div>
         <div class="overlay"></div>
       </div>
-      <div class="card" style="background-image: url('./assets/2.webp')">
+      <div
+        class="card"
+        style="background-image: url('./assets/2.webp')"
+        data-bg="linear-gradient(to bottom, #30cfd0, #0d0b1d)"
+      >
         <h2>Shadowverse</h2>
         <div class="author">
           <img src="./assets/ok.jpeg" alt="Юля" />
           Оксана
         </div>
       </div>
-      <div class="card" style="background-image: url('./assets/3.jpg')">
+      <div
+        class="card"
+        style="background-image: url('./assets/3.jpg')"
+        data-bg="linear-gradient(to bottom, #6a11cb, #0b0e29)"
+      >
         <h2>Shadowverse</h2>
         <div class="author">
           <img src="./assets/v.jpeg" alt="Юля" />
           Ваня
         </div>
       </div>
-      <div class="card" style="background-image: url('./assets/4.jpg')">
+      <div
+        class="card"
+        style="background-image: url('./assets/4.jpg')"
+        data-bg="linear-gradient(to bottom, #ff6a88, #1e0a0a)"
+      >
         <h2>Shadowverse</h2>
         <div class="author">
           <img src="./assets/n.jpeg" alt="Юля" />
           Настя
         </div>
       </div>
-      <div class="card" style="background-image: url('./assets/5.webp')">
+      <div
+        class="card"
+        style="background-image: url('./assets/5.webp')"
+        data-bg="linear-gradient(to bottom, #38ef7d, #002d20)"
+      >
         <h2>Shadowverse</h2>
         <div class="author">
           <img src="./assets/o.jpeg" alt="Юля" />
           Оля
         </div>
       </div>
-      <div class="card" style="background-image: url('./assets/6.png')">
+      <div
+        class="card"
+        style="background-image: url('./assets/6.png')"
+        data-bg="linear-gradient(to bottom, #ff416c, #1a0a0a)"
+      >
         <h2>Shadowverse</h2>
         <div class="author">
           <img src="./assets/a.jpeg" alt="Юля" />
@@ -337,6 +381,54 @@
         }
         updateActiveCard();
       });
+
+      document.querySelector(".button").addEventListener("click", () => {
+        confetti({
+          particleCount: 120,
+          spread: 90,
+          origin: { y: 1 }, // bottom of screen
+          startVelocity: 40,
+          ticks: 300,
+          gravity: 1.2,
+          scalar: 1.2,
+        });
+      });
+
+      function updateActiveCard() {
+        let center = carousel.scrollLeft + carousel.offsetWidth / 2;
+        let closest = null;
+        let closestDist = Infinity;
+        let closestIndex = -1;
+
+        cards.forEach((card, index) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const dist = Math.abs(center - cardCenter);
+
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = card;
+            closestIndex = index;
+          }
+        });
+
+        cards.forEach((card, index) => {
+          card.classList.remove("active", "rotate-left", "rotate-right");
+
+          if (index === closestIndex) {
+            card.classList.add("active");
+
+            // 🔥 Change background on select
+            const bg = card.getAttribute("data-bg");
+            if (bg) {
+              document.body.style.background = bg;
+            }
+          } else if (index === closestIndex - 1) {
+            card.classList.add("rotate-left");
+          } else if (index === closestIndex + 1) {
+            card.classList.add("rotate-right");
+          }
+        });
+      }
     </script>
   </body>
 </html>
