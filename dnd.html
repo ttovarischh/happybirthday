@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D&D Hero Cards</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .card.rotate-left {
+        transform: scale(0.9) rotateY(-20deg);
+        z-index: 5;
+      }
+
+      .card.rotate-right {
+        transform: scale(0.9) rotateY(20deg);
+        z-index: 5;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(to bottom, #2a6eff, #001d3d);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100vh;
+        overflow-x: hidden;
+      }
+
+      .carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        /* gap: 20px; */
+        padding: 0px 32px;
+        padding-top: 80px;
+        padding-bottom: 10px;
+        box-sizing: border-box;
+        width: 100%;
+        perspective: 1000px;
+        scroll-behavior: smooth;
+      }
+
+      .carousel::-webkit-scrollbar {
+        display: none; /* Hides the scrollbar */
+      }
+
+      .text {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 10px;
+        align-items: center;
+
+        flex: 0 0 80%;
+        max-width: 300px;
+        background: #111;
+        border-radius: 24px;
+        overflow: hidden;
+        scroll-snap-align: center;
+        position: relative;
+        text-align: center;
+        transition: transform 0.3s, z-index 0.3s;
+        transform: scale(0.9) rotateY(-5deg);
+        z-index: 0;
+        height: 48vh;
+        background-size: cover;
+        background-position: center;
+        outline: 9.362px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(35.10638427734375px);
+      }
+
+      .card.active {
+        transform: scale(1) rotateY(0deg);
+        z-index: 10;
+      }
+
+      .card img {
+        width: 100%;
+        display: block;
+        height: auto;
+      }
+
+      .card h2 {
+        color: #fff;
+        text-align: center;
+        font-size: 28.085px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 28.085px; /* 100% */
+        letter-spacing: -1px;
+        font-family: "Inter Tight", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        margin: 0;
+      }
+
+      .author {
+        display: flex;
+        padding: 6px 12px 6px 8px;
+        align-items: center;
+        border-radius: 1169.042px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(23.404254913330078px);
+        margin-bottom: 32px;
+        gap: 8px;
+      }
+
+      .author img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+
+      .title {
+        font-family: "Inter Tight", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        text-align: center;
+        font-size: 48px;
+        line-height: 50px;
+        letter-spacing: -1px;
+      }
+
+      .subtitle {
+        color: #858585;
+        text-align: center;
+        font-size: 17px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 19px; /* 120% */
+        font-family: "Inter Tight", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+      }
+
+      .dnd {
+        color: #fff;
+        font-family: Arizonia;
+        font-size: 64px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 50px;
+        letter-spacing: -2.56px;
+      }
+
+      .button {
+        background: white;
+        color: black;
+        border-radius: 999px;
+        padding: 14px 24px;
+        margin-bottom: 40px;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+      }
+
+      .overlay {
+        position: absolute;
+        bottom: 0;
+        height: 200px;
+        left: 0;
+        right: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.8) 100%
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel" id="carousel">
+      <div class="card" style="background-image: url('./assets/1.webp')">
+        <h2 style="z-index: 10">Shadowverse</h2>
+        <div class="author" style="z-index: 10">
+          <img src="./assets/p.jpeg" alt="Юля" />
+          Полина
+        </div>
+        <div class="overlay"></div>
+      </div>
+      <div class="card" style="background-image: url('./assets/2.webp')">
+        <h2>Shadowverse</h2>
+        <div class="author">
+          <img src="./assets/ok.jpeg" alt="Юля" />
+          Оксана
+        </div>
+      </div>
+      <div class="card" style="background-image: url('./assets/3.jpg')">
+        <h2>Shadowverse</h2>
+        <div class="author">
+          <img src="./assets/v.jpeg" alt="Юля" />
+          Ваня
+        </div>
+      </div>
+      <div class="card" style="background-image: url('./assets/4.jpg')">
+        <h2>Shadowverse</h2>
+        <div class="author">
+          <img src="./assets/n.jpeg" alt="Юля" />
+          Настя
+        </div>
+      </div>
+      <div class="card" style="background-image: url('./assets/5.webp')">
+        <h2>Shadowverse</h2>
+        <div class="author">
+          <img src="./assets/o.jpeg" alt="Юля" />
+          Оля
+        </div>
+      </div>
+      <div class="card" style="background-image: url('./assets/6.png')">
+        <h2>Shadowverse</h2>
+        <div class="author">
+          <img src="./assets/a.jpeg" alt="Юля" />
+          Алиса
+        </div>
+      </div>
+    </div>
+
+    <div class="text">
+      <div class="title">
+        Explore ur <br />
+        <span class="dnd">D&amp;D</span> hero
+      </div>
+      <div class="subtitle">
+        Drag left and right to surf cards<br />and click to see more info
+      </div>
+    </div>
+
+    <button class="button">Say Happy birthday, Юля 🎉</button>
+
+    <script>
+      const carousel = document.getElementById("carousel");
+      const cards = carousel.querySelectorAll(".card");
+
+      function updateActiveCard() {
+        let center = carousel.scrollLeft + carousel.offsetWidth / 2;
+        let closest = null;
+        let closestDist = Infinity;
+        let closestIndex = -1;
+
+        cards.forEach((card, index) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const dist = Math.abs(center - cardCenter);
+
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = card;
+            closestIndex = index;
+          }
+        });
+
+        cards.forEach((card, index) => {
+          card.classList.remove("active", "rotate-left", "rotate-right");
+
+          if (index === closestIndex) {
+            card.classList.add("active");
+          } else if (index === closestIndex - 1) {
+            card.classList.add("rotate-left");
+          } else if (index === closestIndex + 1) {
+            card.classList.add("rotate-right");
+          }
+        });
+      }
+
+      function snapToCard() {
+        let center = carousel.scrollLeft + carousel.offsetWidth / 2;
+        let closest = null;
+        let closestDist = Infinity;
+
+        cards.forEach((card) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const dist = Math.abs(center - cardCenter);
+
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = card;
+          }
+        });
+
+        if (closest) {
+          carousel.scrollTo({
+            left:
+              closest.offsetLeft -
+              (carousel.offsetWidth - closest.offsetWidth) / 2,
+            behavior: "smooth",
+          });
+        }
+      }
+
+      let isScrolling;
+      carousel.addEventListener("scroll", () => {
+        window.requestAnimationFrame(updateActiveCard);
+
+        clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+          snapToCard();
+        }, 100);
+      });
+
+      window.addEventListener("load", () => {
+        const thirdCard = cards[2];
+        if (thirdCard) {
+          carousel.scrollTo({
+            left:
+              thirdCard.offsetLeft -
+              (carousel.offsetWidth - thirdCard.offsetWidth) / 2,
+            behavior: "instant",
+          });
+          cards.forEach((card) => card.classList.remove("active"));
+          thirdCard.classList.add("active");
+        }
+        updateActiveCard();
+      });
+    </script>
+  </body>
+</html>
