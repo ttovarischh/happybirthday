@@ -733,6 +733,7 @@
       let isScrolling;
       carousel.addEventListener("scroll", () => {
         window.requestAnimationFrame(updateActiveCard);
+        cards.forEach((card) => card.classList.remove("show-front"));
 
         clearTimeout(isScrolling);
         isScrolling = setTimeout(() => {
