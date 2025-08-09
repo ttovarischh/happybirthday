@@ -52,6 +52,21 @@
         z-index: 5;
       }
 
+      @media (min-width: 1024px) {
+        .card.rotate-left,
+        .card.rotate-right {
+          transform: scale(0.9); /* Remove rotateY */
+        }
+
+        .card {
+          transform: rotateY("0deg");
+        }
+
+        .carousel {
+          gap: 20px;
+        }
+      }
+
       body {
         margin: 0;
         font-family: "Inter", sans-serif;
@@ -64,7 +79,6 @@
         height: 100vh;
         height: 100dvh;
         overflow-x: hidden;
-        transition: all 10s ease;
       }
 
       .carousel {
@@ -110,7 +124,7 @@
         position: relative;
         text-align: center;
         transition: transform 0.3s, z-index 0.3s, height 0.5s;
-        transform: scale(0.9) rotateY(-5deg);
+        transform: scale(0.9);
         z-index: 0;
         height: 48vh;
         background-size: cover;
@@ -363,7 +377,7 @@
             <h2>Юджен</h2>
           </div>
           <div class="author" style="z-index: 10">
-            <img src="./assets/p.jpeg" alt="Юля" />
+            <img src="./assets/o.jpeg" alt="Юля" />
             Оксана
           </div>
         </div>
@@ -728,7 +742,12 @@
       let isScrolling;
       carousel.addEventListener("scroll", () => {
         window.requestAnimationFrame(updateActiveCard);
-        // cards.forEach((card) => card.classList.remove("show-front"));
+
+        cards.forEach((card) => {
+          card.classList.remove("show-front");
+        });
+
+        title.classList.remove("none");
 
         clearTimeout(isScrolling);
         isScrolling = setTimeout(() => {
@@ -755,8 +774,8 @@
             const isActive = card.classList.contains("active");
             if (!isActive) return;
 
-            console.log("ItS CLICKED");
-            title.classList.add("none");
+            title.classList.toggle("none");
+            console.log("its clicked");
 
             cards.forEach((c) => {
               if (c !== card) c.classList.remove("show-front");
